@@ -1,0 +1,63 @@
+__author__ = 'C13516663'
+# Encryption and Decryption program 
+# This program can encript a string entered by a user and return the encrypted string. 
+# It will also do the same with Decrypting strings entered by the user.
+# Created by: Robert Eviston DT211/2 Computing - 13/11/2014
+
+# Dictionary to be used for encrypting/decrypting strings
+alphabet = ['Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
+            'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ' ', '1', '2',
+            '3', '4', '5', '6', '7', '8', '9', '0', 'A', 'B', 'C', 'D', 'E', 'F', 'G',
+            'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
+            'W', 'X', 'Y', 'Z']
+            
+# Function for encrypting a string entered by the user
+# Encyption = moving the letter up one in the dictionary and when every letter is changed it prints string in reverse
+def encrypt():
+    word = ''
+    stringEncrpyt = input("\nPlease enter string to Encrypt(Case Sensitive):\n")
+    for i in stringEncrpyt:
+        if i in alphabet:
+            x = alphabet.index(i) 
+            j = alphabet[x+1]
+            word = (word + str(j))
+
+    print("\nThe string encrypted is: ")
+    print(''.join(reversed(word)))
+
+    input("\nPRESS ENTER TO RETURN TO MAIN MENU\n\n")
+
+# Function for decrypting a string entered by the user
+def decrypt():
+    word1 = ''
+    stringDecrypt = input("\nPlease enter string to Decrypt(Case Sensitive):\n")
+    for i in stringDecrypt:
+        if i in alphabet:
+            y = alphabet.index(i)
+            k = alphabet[y-1]
+            word1 = (word1 +str(k))
+
+    print("\nThe string decrypted is: ")
+    print(''.join(reversed(word1)))
+
+    input("\nPRESS ENTER TO RETURN TO MAIN MENU\n\n")
+
+# This is while-loop that generates the menu for the program
+while(1):
+    try:
+        print("1. Enter string to Encrypt.\n2. Enter string to Decrypt.\n3. Exit")
+        option = int(input("Enter here:"))
+
+        if option == 1:
+            encrypt()
+        elif option == 2:
+            decrypt()
+        elif option == 3: 
+            print("Closing program...\nGoodbye!")
+            exit() #Exits the program
+        else: # Error checking on the menu
+            print("\n" * 10)
+            print("OOPS! try again.")
+    except ValueError: 
+        print("\n" * 10)
+        print("Oops! Not a valid option. Please try again.") 
