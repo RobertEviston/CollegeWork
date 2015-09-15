@@ -1,0 +1,369 @@
+/*This program is a lotto game that has a main menu and functions with specific tasks. The list of functions are: 
+
+1: Gets user to enter lotto numbers.    
+2: Displays numbers entered.    
+3: Displays numbers in order. 
+4: Compares numbers to lotto picked numbers.    
+5: Displays frequency of numbers entered   
+6: Exits program.
+
+All processes are run in functions outside of main.
+
+Author: Robert Eviston
+Date: 13th March 2014
+*/
+#include <stdio.h>
+#include <stdlib.h> // This allows the function 'system("cls")' to be used in the program.
+#define SIZE 6
+#define NUM 42
+
+void enter_numbers(int[], int[]); // Function for entering user's lotto numbers
+void display_numbers(int[]); // Function for display the entered lotto numbers of the user
+void arrange_numbers(int[], int); // Function that arranges the user's lotto numbers in accordance of size
+void compare_numbers(int[], int[]); // Function that compares user's lotto numbers with actual lotto numbers
+void frequency_numbers(int[]); // Function that displays the frequency of numbers the user has entered 
+// Implemented functions
+
+main()
+{
+    int menu; // Variable used for the looping menu
+    int exit = 1; // Variable used for exiting code
+    int finish = 0; // This variable does not allow option 1 and 2 to be chosen straight away after quiz
+    int numbers[SIZE]; // Variable for users lotto numbers
+    int lottonums[SIZE] = {1, 3, 5, 7, 9, 11};
+    int freq[NUM] = {0}; // Variable used for frequncy of numbers entered
+    int nth = SIZE; // int used for bubble sorting
+    
+    do // Program runs inside a do-while loop in order for the main menu to always come back.
+    {
+        menu = 0;
+
+            /* ********MAIN MENU ********** */
+        printf("\t\t-- Welcome to the Lotto game! --\n");
+        printf("\t\t\t -- Main Menu --\n\n");
+        
+        printf("----------------------------------------------------------------\n");
+        printf("| 1 =\tEnter your 6 lotto numbers and 1 Bonus number          |\n");
+        printf("| 2 =\tDisplay your chosen lotto numbers                      |\n");
+        printf("| 3 =\tDisplay your chosen lotto numbers in order of value    |\n");
+        printf("| 4 =\t* Compare your lotto numbers with this weeks numbers * |\n"); 
+        printf("| 5 =\tDisplay frequency of numbers entered                   |\n");
+        printf("| 6 =\tExit program                                           |\n"); 
+        printf("----------------------------------------------------------------\n\n");
+        // These printfs are the main menu display that appears when user opens program.
+        
+        scanf("%d", &menu); // User enters there choice in the main menu.
+        flushall();
+        
+        switch(menu)
+        {
+            case 1:               // Option 1 chosen
+            {
+                finish = 1;
+                system("cls");
+                enter_numbers(numbers, freq);
+                
+                break;
+            } // End Option 1 
+            
+            case 2:               // Option 2 chosen
+            {
+                if (finish == 0)
+                {
+                    system("cls");
+                    printf("Cannot choose this option until option 1 is chosen\n\n\a");
+                }// end if()
+                else
+                {
+                system("cls");
+                display_numbers(numbers);
+                
+                }// end else()
+                break;
+            } // End option 2 
+            
+            case 3:               // Option 3 chosen
+            {
+                if (finish == 0)
+                {
+                    system("cls");
+                    printf("Cannot choose this option until option 1 is chosen\n\n\a");
+                }// end if()
+                else
+                {
+                system("cls");
+                arrange_numbers(numbers, nth);
+                
+                }// end else()
+                break;
+            } // End option 3 
+            
+            case 4:               // Option 4 chosen
+            {
+                if (finish == 0)
+                {
+                    system("cls");
+                    printf("Cannot choose this option until option 1 is chosen\n\n\a");
+                }// end if()
+                else
+                {
+                system("cls");
+                compare_numbers(lottonums, numbers);
+                
+                }// end else()
+                break;
+            } // End option 
+            
+            case 5:               // Option 5 chosen
+            {
+                if(finish == 0)
+                {
+                    system("cls");
+                    printf("Cannot choose this option until option 1 is chosen\n\n\a");
+                } //end if()
+                else
+                {
+                system("cls");
+                frequency_numbers(freq);
+                
+                }// end else()
+                break;
+            } // End option 5 
+            
+            case 6:              // Option 6 chosen
+            {
+                menu = 11;
+                system("cls");
+                exit = 0; // Exits do-while code
+                
+                break;
+            } // End option 6
+            
+            default:
+            { // Reverts to main menu for the user to put in correct option choice. (Error Checking)
+                system("cls"); 
+                printf("ERROR!\n");
+                printf("** That is not a valid choice please enter again! **\n\n\n\a");
+                
+                break;
+            } // end else()
+        } // end switch(menu)
+            
+    }while (exit != 0); // Program runs forever until option 6 is chosen.
+
+    printf("Press any key to exit\n");
+    printf("Thank you for playing!");
+    getchar();
+} // End main
+
+
+// 1 1 1 1 1 1 1 1 -------------------------------------------------------------- 1 1 1 1 1 1 1 1
+void enter_numbers(int numbers1[], int freq1[])
+{
+    int i, j;
+    int choice; // Error checking variable
+    int fail;
+
+    printf("\t\t\t\t** Option 1 **\n\n");
+    printf("Please enter your 6 lotto numbers: \n(Reminder: Numbers are from 1 - 42)\n\n");
+        
+    for(i=0;i<SIZE;i++)
+    {
+        *(numbers1 + i) = 0; // Initialise array to zero
+    } // end for ()
+    
+    for(i=0;i<SIZE;i++)
+    {
+        fail = 0;
+        
+        scanf("%d", &choice); // scans in users guess for lotto numbers
+        flushall();
+
+        for(j=0;j<SIZE;j++)
+        {   
+            if(choice == *(numbers1 + j))
+            {
+                fail = 1; // Makes sure number has not been entered twice
+                break;
+            }// end if()
+        }//end for()
+        
+        if(fail != 1)
+        {
+            if(choice > 0 && choice < 43) // ERROR CHECKING
+            {
+                (*(freq1+(choice-1)))++; // This increments the number in frequency
+                *(numbers1 + i) = choice; // Number entered
+            }// end inner if()
+            else
+            {
+                printf("That is an invalid number please try again\n");
+                i--;
+            }// end else()
+        }// end outter if()
+        else
+        {
+            printf("That is an invalid number please try again\n");
+            i--;
+        }// end outter else()
+        
+    }// end for()
+    
+    system("cls");
+    printf("Your numbers have been saved!\n\n");
+    
+}// end enter_numbers()
+
+
+// 2 2 2 2 2 2 2 ---------------------------------------------------------- 2 2 2 2 2 2 2
+void display_numbers(int numbers2[])
+{
+    int h;
+    
+    printf("\t\t\t\t** Option 2 **\n\n");
+    printf("The numbers you have chosen are:\n");
+    
+    for(h=0;h<SIZE;h++)
+    {
+        printf("|%d|  ", *(numbers2 + h)); // This displays the numbers entered
+    }// end for()d display numbers()
+  
+    getchar();
+    system("cls");
+ 
+}
+
+
+// 3 3 3 3 3 3 ---------------------------------------------------------- 3 3 3 3 3 3 3 
+void arrange_numbers(int numbers3[],int N)
+{
+    int k, l;
+    int temp;
+    
+    printf("\t\t\t\t** Option 3 **\n\n");
+    
+    for (l=N-1;l>=1;l--) //last element
+    {   
+        for (k=0;k<l;k++)
+        {
+            if (numbers3[k] > numbers3[k+1]) 
+            {// swap them
+                temp = numbers3[k+1];
+                numbers3[k+1] = numbers3[k];  // swap code
+                numbers3[k] = temp;
+            }// end if
+        } //end for
+    } //end for
+    
+    system("cls");
+    printf("Your numbers have been sorted from smallest to biggest\n\n");
+
+}// end arrange_numbers
+
+
+// 4 4 4 4 4 4 --------------------------------------------------------- 4 4 4 4 4 4 4
+void compare_numbers(int lottonumbers4[], int numbers4[])
+{
+    int m, o;
+    int bonus = 0; 
+    int count = 0;
+    printf("\t\t\t\t** Option 4 **\n\n");
+    
+    for(m=0;m<SIZE;m++)
+    {
+        if(*(numbers4 + m) == 42)
+        {
+            bonus++; // this scans for the bonus number and if it has been entered, increments it
+        } // end if()
+    } //end for()
+    
+    for(o=0;o<SIZE;o++)
+    {
+        for(m=0;m<SIZE;m++)
+        {  
+            if(*(lottonumbers4 + m) == *(numbers4 + o))
+            {
+                count++; // Counts the number of correct lotto numbers from the user's numbers
+            } // end if()
+        } // end inner for()
+    } // end outter for()
+    
+    // These printfs are the possible scenarios based on how many lotto numbers the user had correct
+    if(count == 6)
+    {
+        printf("Congragulations! You've matched 6 numbers!\n");
+        printf("You have won the 8 Million euro Jackpot!!\n\n\n");
+    }// end if()
+    
+    if(count == 5 && bonus > 0)
+    {
+        printf("Congragulations! You've matched 5 numbers and the bonus number!\n");
+        printf("You have won a New Car!!\n\n\n");
+    }// end if()
+    
+    if(count == 5 && bonus == 0)
+    {
+        printf("Congragulations! You've matched 5 numbers!\n");
+        printf("You have won yourself a Holiday abroad!!\n\n\n");
+    }// end if()    
+    
+    if(count == 4 && bonus > 0)
+    {
+        printf("Congragulations! You've matched 4 numbers and the bonus number!\n");
+        printf("You have won yourself a weekend away!!\n\n\n");
+    }// end if()
+    
+    if(count == 4 && bonus == 0)
+    {
+        printf("Congragulations! You've matched 4 numbers!\n");
+        printf("You have won a Night Out for you and a friend!!\n\n\n");
+    }// end if()
+    
+    if(count == 3 && bonus > 0)
+    {
+        printf("Congragulations! You've matched 3 numbers and the bonus number!\n");
+        printf("You have won a pair of Cinema tickets to a film of your choice!!\n\n\n");
+    }// end if()
+    
+    if(count <= 3 && bonus < 1)
+    {
+        printf("Sorry you didn't match enough numbers\nBetter luck next time!\n\n\n");
+    }// end if()
+    
+    printf("These are your lotto numbers: \n");
+    for(m=0;m<SIZE;m++)
+    {
+        printf("|%d|  ", *(numbers4 + m));
+    }// end for()d display numbers
+    
+    printf("\n\n\nThese are the lotto numbers for this week: \n");
+    for(m=0;m<SIZE;m++)
+    {
+        printf("|%d|  ", *(lottonumbers4 + m));
+    }// end for() display numbers
+    printf("\nBonus number is |42|\n");
+    
+    getchar();
+    system("cls");
+    
+}// end compare_numbers
+
+
+// 5 5 5 5 5 5 -------------------------------------------------------- 5 5 5 5 5 5 5
+void frequency_numbers(int freq5[])
+{
+    int q;
+    printf("\t\t\t\t** Option 5 **\n\n");
+    
+    for(q=0;q<NUM;q++)
+    {
+        if(freq5[q] > 0)
+        {
+            printf("%d was entered %d times.\n", q+1, freq5[q]); // Displays the frequency of numbers entered if they have been entered
+        }// end if()
+    }// end for()
+    
+    getchar();
+    system("cls");
+    
+}// end frequency_numbers()
