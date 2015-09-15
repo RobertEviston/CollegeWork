@@ -1,0 +1,401 @@
+/* This program is a mathematchial quiz game in which the user selects
+an option from the menu and various maths quizzes can be done, upon completion 
+of a quiz the program will revert back to the main menu for the user to try another quiz.
+Author: Robert Eviston
+Date: 13th March 2014
+*/
+
+#include <stdio.h>
+#include <stdlib.h> // This allows the function 'system("cls")' to be used in the program.
+#include <string.h>
+
+main()
+{
+    int menu; // This variable is used for the looping menu
+    int quest_num; // This variable determines question number
+    int no_quests; // This variable determines amount of questions asked
+    int exit; // This variable is the variable used for exiting code
+    int ans_correct; // This variable displays amount of correct answers
+    int ans_wrong; // This variable displays amount of wrong answers
+    int ans1, ans2, ans3, ans4, ans5 = 0; // These variables are read in answers
+    int finish; // This variable does not allow option 1 and 2 to be chosen straight away after quiz
+    
+    no_quests = 0;
+    quest_num = 0;
+    ans_correct = 0;
+    ans_wrong = 0;
+    exit = 1; // When exit = 0 code exits
+    finish = 1; // When quiz ends finish changes to 1 so option 1 and 2 cannot be chosen
+    
+    do // Program runs inside a do-while loop in order for the main menu to always come back.
+    {
+        
+        printf("\t\t-- Welcome to the Lotto generator! --\n");
+        printf("\t\t\t -- Main Menu --\n\n");
+        printf("1 =\tEnter the number of questions to be asked for this round of the quiz\n");
+        printf("2 =\tStart Quiz\n");
+        printf("3 =\tDisplay results from last round\n");
+        printf("4 =\tExit program\n\n"); // These printfs are the main menu display that appears when user opens program.
+        
+        scanf("%d", &menu); // User enters there choice in the main menu.
+        flushall();
+        
+        if (menu == 1) // Option 1 chosen
+        {
+            if (finish == 0) // This if( ) stops users from choosing option 1 and 2 after quiz is finished
+            {
+                system("cls"); // This command clears the screen of text
+                printf("Cannot choose option 1 or 2 until option 3 or 4 is chosen\n\n\a");
+            }
+            else
+            {
+                system("cls"); // Clears screen and displays to user options for amount of questions to be asked
+                printf("How many questions would you like to have? (Max: 5)\n");
+                printf("1 = 1 question\n");
+                printf("2 = 2 questions\n");    
+                printf("3 = 3 questions\n");
+                printf("4 = 4 questions\n");
+                printf("5 = 5 questions\n");   // These options determine amount of questions to be asked in quiz
+                
+                scanf("%d", &quest_num); // Reads in number of questions to be asked
+                flushall();
+                
+                if (quest_num == 1) 
+                {
+                    no_quests = 1;
+                    system("cls");
+                    menu = 0;
+                }
+                else if (quest_num == 2)
+                {
+                    no_quests = 2;
+                    system("cls");
+                    menu = 0;
+                }
+                else if (quest_num == 3)
+                {
+                    no_quests = 3;
+                    system("cls");
+                    menu = 0;
+                }
+                else if (quest_num == 4)
+                {
+                    no_quests = 4;
+                    system("cls");
+                    menu = 0;
+                }
+                else if (quest_num == 5)
+                {
+                    no_quests = 5;
+                    system("cls");
+                    menu = 0;
+                }
+                else 
+                {
+                    system("cls");
+                    printf("Invalid number of questions asked.\n\n\a"); // If user enters a wrong charcter program will display this error message and ask them to try again
+                    quest_num = 0;
+                }
+            }
+        }    // End Option 1 if ( )
+        else if (menu == 2) // Option 2 chosen
+        {
+            if (finish == 0)
+            {
+                system("cls");
+                printf("Cannot choose option 1 or 2 until option 3 or 4 is chosen\n\n\a");
+            } 
+            else
+            {
+                ans_correct = 0;
+                ans_wrong = 0;
+                finish = 0;
+                if (no_quests == 1) // If number of questions to be asked = 1
+                {
+                    system("cls");
+                    printf("Question 1:\t5 x 6 = ?\n\n"); // Question 1 asked
+                    scanf("%d", &ans1);
+                    if (ans1 == 30)
+                    {
+                        system("cls");
+                        printf("Correct! the answer is 30!\n");
+                        ans_correct = ans_correct + 1;
+                        printf("Quiz has finished!\n\n");
+                    }
+                    else
+                    {
+                        system("cls");
+                        printf("%d is Incorrect! The correct answer is 30!\n\n", ans1);
+                        ans_wrong = ans_wrong + 1;
+                        printf("Quiz has finished!\n\n");
+                    }
+                } // End quiz with 1 question
+                else if (no_quests == 2) // If number of questions to be asked = 2
+                {
+                    system("cls");
+                    printf("Question 1:\t5 x 6 = ?\n\n"); // Question 1 asked
+                    scanf("%d", &ans1);
+                    if (ans1 == 30)
+                    {
+                        system("cls");
+                        printf("Correct! The answer is 30!\n\n");
+                        ans_correct = ans_correct + 1;
+                    }
+                    else
+                    {
+                        system("cls");
+                        printf("%d is incorrect! The correct answer is 30!\n\n", ans1);
+                        ans_wrong = ans_wrong + 1;
+                    }
+                    
+                    printf("Question 2:\t225 / 25 = ?\n\n"); // Question 2 asked
+                    scanf("%d", &ans2);
+                    if (ans2 == 9)
+                    {
+                        system("cls");
+                        printf("Correct! the answer is 9!\n\n");
+                        ans_correct = ans_correct + 1;
+                        printf("Quiz has finished!\n\n");
+                    }
+                    else
+                    {
+                        system("cls");
+                        printf("%d is incorrect! The correct answer is 9!\n\n", ans2);
+                        ans_wrong = ans_wrong + 1;
+                        printf("Quiz has finished!\n\n");
+                    }
+                } // End quiz with 2 questions
+                else if (no_quests == 3) // If number of questions to be asked = 3
+                {
+                    system("cls");
+                    printf("Question 1:\t5 x 6 = ?\n\n"); // Question 1 asked
+                    scanf("%d", &ans1);
+                    if (ans1 == 30)
+                    {
+                        system("cls");
+                        printf("Correct! The answer is 30!\n\n");
+                        ans_correct = ans_correct + 1;
+                    }
+                    else
+                    {
+                        system("cls");
+                        printf("%d is incorrect! The correct answer is 30!\n\n", ans1);
+                        ans_wrong = ans_wrong + 1;
+                    }
+                    
+                    printf("Question 2:\t225 / 25 = ?\n\n"); // Question 2 asked
+                    scanf("%d", &ans2);
+                    if (ans2 == 9)
+                    {
+                        system("cls");
+                        printf("Correct! the answer is 9!\n\n");
+                        ans_correct = ans_correct + 1;
+                    }
+                    else
+                    {
+                        system("cls");
+                        printf("%d is incorrect! The correct answer is 9!\n\n", ans2);
+                        ans_wrong = ans_wrong + 1;
+                    }   
+                    
+                    printf("Question 3:\t 46 + 35 = ?\n\n"); // Question 3 asked
+                    scanf("%d", &ans3);
+                    if (ans3 == 81)
+                    {
+                        system("cls");
+                        printf("Correct! The answer is 81!\n\n");
+                        ans_correct = ans_correct + 1;
+                        printf("Quiz has finished!\n\n");
+                    }
+                    else 
+                    {
+                        system("cls");
+                        printf("%d is incorrect! The answer is 81!\n\n", ans3);
+                        ans_wrong = ans_wrong + 1;
+                        printf("Quiz has finished!\n\n");
+                    }
+                } // End quiz with 3 questions
+                else if (no_quests == 4) // If number of questions to be asked = 4
+                {
+                    system("cls");
+                    printf("Question 1:\t5 x 6 = ?\n\n"); // Question 1 asked
+                    scanf("%d", &ans1);
+                    if (ans1 == 30)
+                    {
+                        system("cls");
+                        printf("Correct! The answer is 30!\n\n");
+                        ans_correct = ans_correct + 1;
+                    }
+                    else
+                    {
+                        system("cls");
+                        printf("%d is incorrect! The correct answer is 30!\n\n", ans1);
+                        ans_wrong = ans_wrong + 1;
+                    }
+                    
+                    printf("Question 2:\t225 / 25 = ?\n\n"); // Question 2 asked
+                    scanf("%d", &ans2);
+                    if (ans2 == 9)
+                    {
+                        system("cls");
+                        printf("Correct! the answer is 9!\n\n");
+                        ans_correct = ans_correct + 1;
+                    }
+                    else
+                    {
+                        system("cls");
+                        printf("%d is incorrect! The correct answer is 9!\n\n", ans2);
+                        ans_wrong = ans_wrong + 1;
+                    }   
+                    
+                    printf("Question 3:\t 46 + 35 = ?\n\n"); // Question 3 asked
+                    scanf("%d", &ans3);
+                    if (ans3 == 81)
+                    {
+                        system("cls");
+                        printf("Correct! The answer is 81!\n\n");
+                        ans_correct = ans_correct + 1;
+                    }
+                    else 
+                    {
+                        system("cls");
+                        printf("%d is incorrect! The answer is 81!\n\n", ans3);
+                        ans_wrong = ans_wrong + 1;
+                    } 
+                    
+                    printf("Question 4:\t 9 * 4 = ?\n\n"); // Question 4 asked
+                    scanf("%d", &ans4);
+                    if (ans4 == 36)
+                    {
+                        system("cls");
+                        printf("Correct! The answer is 36!\n\n");
+                        ans_correct = ans_correct + 1;
+                        printf("Quiz is finished!\n\n");
+                    }
+                    else 
+                    {
+                        system("cls");
+                        printf("%d is incorrect! The answer is 36!\n\n", ans4);
+                        ans_wrong = ans_wrong + 1;
+                        printf("Quiz is finished!\n\n");
+                    }
+                } // End quiz with 4 questions
+                else if (no_quests == 5) // If number of questions to be asked = 5
+                {
+                    system("cls");
+                    printf("Question 1:\t5 x 6 = ?\n\n"); // Question 1 asked
+                    scanf("%d", &ans1);
+                    if (ans1 == 30)
+                    {
+                        system("cls");
+                        printf("Correct! The answer is 30!\n\n");
+                        ans_correct = ans_correct + 1;
+                    }
+                    else
+                    {
+                        system("cls");
+                        printf("%d is incorrect! The correct answer is 30!\n\n", ans1);
+                        ans_wrong = ans_wrong + 1;
+                    }
+                    
+                    printf("Question 2:\t225 / 25 = ?\n\n"); // Question 2 asked
+                    scanf("%d", &ans2);
+                    if (ans2 == 9)
+                    {
+                        system("cls");
+                        printf("Correct! the answer is 9!\n\n");
+                        ans_correct = ans_correct + 1;
+                    }
+                    else
+                    {
+                        system("cls");
+                        printf("%d is incorrect! The correct answer is 9!\n\n", ans2);
+                        ans_wrong = ans_wrong + 1;
+                    }   
+                    
+                    printf("Question 3:\t 46 + 35 = ?\n\n"); // Question 3 asked
+                    scanf("%d", &ans3);
+                    if (ans3 == 81)
+                    {
+                        system("cls");
+                        printf("Correct! The answer is 81!\n\n");
+                        ans_correct = ans_correct + 1;
+                    }
+                    else 
+                    {
+                        system("cls");
+                        printf("%d is incorrect! The answer is 81!\n\n", ans3);
+                        ans_wrong = ans_wrong + 1;
+                    } 
+                    
+                    printf("Question 4:\t 9 * 4 = ?\n\n"); // Question 4 asked
+                    scanf("%d", &ans4);
+                    if (ans4 == 36)
+                    {
+                        system("cls");
+                        printf("Correct! The answer is 36!\n\n");
+                        ans_correct = ans_correct + 1;
+                    }
+                    else 
+                    {
+                        system("cls");
+                        printf("%d is incorrect! The answer is 36!\n\n", ans4);
+                        ans_wrong = ans_wrong + 1;
+                    }
+                    
+                    printf("Question 5: (30 + 5) * 2 = ?\n\n"); // Question 5 asked
+                    scanf("%d", &ans5);
+                    if (ans5 == 70)
+                    {
+                        system("cls");
+                        printf("Correct! The answer is 70!\n\n");
+                        ans_correct = ans_correct + 1;
+                        printf("Quiz is finished!\n\n");
+                    }
+                    else
+                    {
+                        system("cls");
+                        printf("%d is incorrect! The answer is 70!\n\n", ans5);
+                        ans_wrong = ans_wrong + 1;
+                        printf("Quiz is finished!\n\n");
+                    }
+                } // End quiz with 5 questions
+                else if (no_quests == 0)
+                {
+                    system("cls"); // Reverts back to main menu if no number of questions chosen
+                    printf("Number of questions not chosen please enter your choice\n\n"); 
+                    finish = 1;
+                }
+                else 
+                {
+                    system("cls"); // Reverts back to main menu if no number of questions chosen
+                    printf("Number of questions not chosen please enter your choice again\n\n");
+                    finish = 1;
+                }
+            }
+        } // End option 2 if ( )
+        else if (menu == 3) // Option 3 chosen
+        {
+            system("cls");
+            printf("The number of questions answered correctly in the last round = %d\n", ans_correct);
+            printf("The number of questions answered wrong in the last round = %d\n\n", ans_wrong);
+            finish = 1;
+        } // End option 3 if ( )
+        else if (menu == 4) // Option 4 chosen
+        {
+            system("cls");
+            exit = 0; // Exits code
+        } // End option if ( )
+        else 
+        {
+            system("cls");
+            printf("Not a valid choice please enter again\n\n\a"); // Reverts to main menu for the user to put in correct option choice.
+        }
+        
+    } while (exit != 0); // Program runs forever until option 4 is chosen.
+
+    printf("Thank you for playing, Goodbye!");
+    
+    getchar();
+    
+} // End main
