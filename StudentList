@@ -1,0 +1,126 @@
+// Author: Robert Eviston
+// Date: 21/09/2015
+
+public class main  
+{
+	public static void main(String[] args) 
+	{
+		Person[] thePerson = new Person[4];
+		String[] nameList = new String[4];
+		char[] genderList = {'M', 'M', 'M', 'F'};
+		
+		for(int i = 0; i < nameList.length; i++)
+		{
+			nameList[i] = String input);
+		}
+		
+		for(int i = 0; i < thePerson.length; i++)
+		{
+			thePerson[i] = new Person(nameList[i], genderList[i]);
+			System.out.println(thePerson[i]);
+		}
+		
+		// Creating new instances of the Person class
+		Person person1 = new Person("Fred", 'M');
+		Person person2 = new Person("Jane" , 'F');
+		Person person3 = new Person("Mike" , 'M');
+		Person person4 = new Person("Mary" , 'F');
+		
+		Student student1 = new Student("Robert", 'M', "DT211");
+		Student student2 = new Student("Sean", 'M', "DT288");
+
+		System.out.println(person1);
+		System.out.println(person2);
+		
+		System.out.println(student1);
+		System.out.println(student2);
+		
+		student1.getCourseCode();
+		student2.confirmDetails();
+		
+	}
+}
+
+// ----------------------- Person Class -----------------------
+public class Person
+{
+	private String name;
+	private char gender;
+	
+	// Inistialization of each instance of people
+	public Person(String name, char gender)
+	{
+		// Parameters in Person class
+		this.name = name;
+		this.gender = gender;
+	}
+	
+	// Overriding the toString method to print out 
+	public String toString()
+	{
+		return "The name of this person is "+this.name+", and their gender is "+this.gender+"";
+	}
+}
+
+// ---------------------- Publish Details Interface -------------
+public interface PublishDetails 
+{
+	// 
+	public boolean confirmDetails();
+	public int getCourseCode();
+}
+
+// ------------------------ Student Class ----------------------
+public class Student extends Person implements PublishDetails
+{
+	// interface functions
+	@Override
+	public boolean confirmDetails()
+	{
+		if(this.getName().isEmpty())
+		{
+			return false;
+		}
+		else
+		{
+			System.out.println("Details confirmed");
+			return true;
+		}
+	}
+	
+	public void getCourseCode()
+	{
+		System.out.println("Course code is DT211.");
+	}
+	
+	// Declarations
+	private int id;
+	private String courseCode;
+	private static int seqNo = 100;
+	
+	/* Student class
+	public Student(String name, char gender, int id, String courseCode) 
+	{
+		super(name, gender);
+		
+		this.id = id;
+		this.courseCode = courseCode;
+	}*/
+	
+	// Student class 2
+	public Student(String name, char gender, String whatCourse)
+	{
+		super(name, gender);
+		id = seqNo;	// set studentId to value of seqNo
+		seqNo++;			// increment seqNo to next value
+		//courseId = 453;
+		courseCode = whatCourse;
+	}
+		
+	// print out method
+	public String toString()
+	{
+		String string1 = super .toString();
+		return string1 + ", ID: "+this.id+", Course code: "+this.courseCode+"";
+	}
+}
